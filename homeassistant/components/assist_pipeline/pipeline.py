@@ -20,7 +20,7 @@ from homeassistant.helpers.typing import UNDEFINED, UndefinedType, VolDictType
 from homeassistant.util import language as language_util, ulid as ulid_util
 
 from . import error as _error, models as _models, run as _run, runtime as _runtime
-from .const import DOMAIN
+from .const import DEFAULT_PIPELINE_NAME, DOMAIN
 
 PipelineError = _error.PipelineError
 PipelineNotFound = _error.PipelineNotFound
@@ -49,7 +49,7 @@ _LOGGER = logging.getLogger(__name__)
 
 STORAGE_KEY = f"{DOMAIN}.pipelines"
 STORAGE_VERSION = 1
-STORAGE_VERSION_MINOR = 2
+STORAGE_VERSION_MINOR = 3
 
 ENGINE_LANGUAGE_PAIRS = (
     ("stt_engine", "stt_language"),
@@ -196,7 +196,7 @@ async def _async_create_default_pipeline(
     default stt / tts engines.
     """
     pipeline_settings = _async_resolve_default_pipeline_settings(
-        hass, pipeline_name="Home Assistant"
+        hass, pipeline_name=DEFAULT_PIPELINE_NAME
     )
     return await pipeline_store.async_create_item(pipeline_settings)
 
@@ -543,6 +543,16 @@ class PipelineStore(Store[SerializedPipelineStorageCollection]):
                 # Populate keys which were introduced before version 1.2
                 pipeline.setdefault("wake_word_entity", None)
                 pipeline.setdefault("wake_word_id", None)
+
+        if old_major_version == 1 and old_minor_version < 3:
+            existing_names = {pipeline.get("name") for pipeline in old_data["items"]}
+            for pipeline in old_data["items"]:
+                if (
+                    pipeline.get("name") == "Home Assistant"
+                    and DEFAULT_PIPELINE_NAME not in existing_names
+                ):
+                    pipeline["name"] = DEFAULT_PIPELINE_NAME
+                    existing_names.add(DEFAULT_PIPELINE_NAME)
 
         if old_major_version > 1:
             raise NotImplementedError

@@ -12,6 +12,7 @@ if TYPE_CHECKING:
 
 DOMAIN: Final = "conversation"
 HOME_ASSISTANT_AGENT = "conversation.home_assistant"
+DEFAULT_AGENT_NAME = "CHENGVIN Assistant"
 
 ATTR_TEXT = "text"
 ATTR_LANGUAGE = "language"

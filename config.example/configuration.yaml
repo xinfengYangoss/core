@@ -1,0 +1,11 @@
+# This file is safe to commit. Copy it to config/configuration.yaml before
+# starting a local development instance, then keep the runtime config directory
+# private and out of Git.
+
+frontend:
+  # Path inside the Core development container. Change this if the frontend
+  # repository is mounted at a different container path.
+  development_repo: /workspaces/frontend
+
+# Enables the Home Assistant Companion App integration.
+mobile_app:

@@ -68,7 +68,9 @@ from homeassistant.util.json import JsonObjectType, json_loads_object
 from .agent_manager import IntentSourceConfig, get_agent_manager
 from .chat_log import AssistantContent, ChatLog, ToolResultContent
 from .const import (
+    DEFAULT_AGENT_NAME,
     DOMAIN,
+    HOME_ASSISTANT_AGENT,
     METADATA_CUSTOM_FILE,
     METADATA_CUSTOM_SENTENCE,
     ConversationEntityFeature,
@@ -233,12 +235,13 @@ async def async_setup_default_agent(
 class DefaultAgent(ConversationEntity):
     """Default agent for conversation agent."""
 
-    _attr_name = "Home Assistant"
+    _attr_name = DEFAULT_AGENT_NAME
     _attr_supported_features = ConversationEntityFeature.CONTROL
 
     def __init__(self, hass: HomeAssistant) -> None:
         """Initialize the default agent."""
         self.hass = hass
+        self.entity_id = HOME_ASSISTANT_AGENT
 
         self._lang_intents: dict[str, LanguageIntents | object] = {}
         self._load_intents_lock = asyncio.Lock()

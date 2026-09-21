@@ -60,7 +60,7 @@ CONF_GITHUB_TOKEN = "github_token"
 
 DEV_ARTIFACTS_DIR = "development_artifacts"
 
-DEFAULT_THEME_COLOR = "#2980b9"
+DEFAULT_THEME_COLOR = "#006FBF"
 
 
 DATA_PANELS: HassKey[dict[str, Panel]] = HassKey("frontend_panels")
@@ -210,27 +210,18 @@ MANIFEST_JSON = Manifest(
     {
         "background_color": "#FFFFFF",
         "description": (
-            "Home automation platform that puts local control and privacy first."
+            "CHENGVIN smart home platform that puts local control and privacy first."
         ),
         "dir": "ltr",
         "display": "standalone",
         "icons": [
             {
-                "src": f"/static/icons/favicon-{size}x{size}.png",
+                "src": "/static/icons/chengvin.png",
                 "sizes": f"{size}x{size}",
                 "type": "image/png",
                 "purpose": "any",
             }
             for size in (192, 384, 512, 1024)
-        ]
-        + [
-            {
-                "src": f"/static/icons/maskable_icon-{size}x{size}.png",
-                "sizes": f"{size}x{size}",
-                "type": "image/png",
-                "purpose": "maskable",
-            }
-            for size in (48, 72, 96, 128, 192, 384, 512)
         ],
         "screenshots": [
             {
@@ -240,14 +231,14 @@ MANIFEST_JSON = Manifest(
             }
         ],
         "lang": "en-US",
-        "name": "Home Assistant",
-        "short_name": "Home Assistant",
+        "name": "CHENGVIN",
+        "short_name": "CHENGVIN",
         "start_url": "/?homescreen=1",
         "id": "/?homescreen=1",
         "theme_color": DEFAULT_THEME_COLOR,
         "prefer_related_applications": True,
         "related_applications": [
-            {"platform": "play", "id": "io.homeassistant.companion.android"}
+            {"platform": "play", "id": "com.chengvin.smarthome"}
         ],
     }
 )

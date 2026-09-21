@@ -4,6 +4,8 @@ from pathlib import Path
 
 DOMAIN = "assist_pipeline"
 
+DEFAULT_PIPELINE_NAME = "CHENGVIN Assistant"
+
 DATA_CONFIG = f"{DOMAIN}.config"
 
 DEFAULT_PIPELINE_TIMEOUT = 60 * 5  # seconds
